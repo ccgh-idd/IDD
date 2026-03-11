@@ -1,0 +1,98 @@
+[
+    {
+        "name": "London School of Hygiene & Tropical Medicine, UK",
+        "lat": 51.5207,
+        "lon": -0.1296,
+        "count": 45
+    },
+    {
+        "name": "Charité - Universitätsmedizin Berlin, Germany",
+        "lat": 52.5260,
+        "lon": 13.3777,
+        "count": 28
+    },
+    {
+        "name": "Nagasaki University, Japan",
+        "lat": 32.7745,
+        "lon": 129.8643,
+        "count": 12
+    },
+    {
+        "name": "Mahidol-Oxford Tropical Medicine Research Unit, Thailand",
+        "lat": 13.7650,
+        "lon": 100.5255,
+        "count": 15
+    },
+    {
+        "name": "KEMRI-Wellcome Trust Research Programme, Kenya",
+        "lat": -3.5855,
+        "lon": 39.8459,
+        "count": 18
+    },
+    {
+        "name": "Yale School of Public Health, USA",
+        "lat": 41.3039,
+        "lon": -72.9298,
+        "count": 8
+    },
+    {
+        "name": "Emory University, USA",
+        "lat": 33.7925,
+        "lon": -84.3240,
+        "count": 7
+    },
+    {
+        "name": "World Health Organization, Switzerland",
+        "lat": 46.2044,
+        "lon": 6.1432,
+        "count": 22
+    },
+    {
+        "name": "RIVM, Netherlands",
+        "lat": 52.1226,
+        "lon": 5.1837,
+        "count": 10
+    },
+    {
+        "name": "University of Melbourne, Australia",
+        "lat": -37.7964,
+        "lon": 144.9612,
+        "count": 5
+    },
+    {
+        "name": "FIOCRUZ, Brazil",
+        "lat": -22.8757,
+        "lon": -43.2454,
+        "count": 6
+    },
+    {
+        "name": "University of the Witwatersrand, South Africa",
+        "lat": -26.1898,
+        "lon": 28.0306,
+        "count": 14
+    },
+    {
+        "name": "Oxford University, UK",
+        "lat": 51.7520,
+        "lon": -1.2577,
+        "count": 30
+    },
+    {
+        "name": "Christian Medical College Vellore, India",
+        "lat": 12.9279,
+        "lon": 79.1329,
+        "count": 9
+    },
+    {
+        "name": "National University of Singapore, Singapore",
+        "lat": 1.2966,
+        "lon": 103.7764,
+        "count": 4
+    },
+    {
+        "name": "Harvard T.H. Chan School of Public Health, USA",
+        "lat": 42.3353,
+        "lon": -71.1026,
+        "count": 11
+    }
+]

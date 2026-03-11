@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDD@ccgh</title>
+    <meta name="description"
+        content="Official website of the Infectious Disease Dynamics (IDD) lab at Charité Centre for Global Health. Researching transmission dynamics and ecological interactions.">
+
+    <link rel="icon" type="image/png" href="Pics/Favicon.png">
+    <link rel="stylesheet" href="index.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+</head>
+
+<body>
+    <nav class="glass animate-fade">
+        <div class="nav-content">
+            <div class="logo">IDD<span>@ccgh</span></div>
+            <button class="burger" id="burger" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#github">GitHub</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-bg animate-fade"></div>
+        <div class="hero-content animate-fade">
+            <h1 id="typing-header" class="typing-cursor">Infectious Disease Dynamics in<br><span>Global Health </span>
+            </h1>
+            <p id="hero-subtitle">The Infectious Disease Dynamics group at the Charité Centre for Global Health
+                investigates disease
+                burden, transmission patterns and ecological
+                interactions to design effective control strategies.</p>
+            <div id="hero-buttons" class="hero-btns">
+                <a href="#research" class="btn btn-primary">Our Research</a>
+                <a href="#team" class="btn btn-secondary">The Team</a>
+                <a href="#github" class="btn btn-primary">Open Science</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="about reveal">
+        <div class="section-title reveal">
+            <h2>Understanding Dynamics</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <p>Understanding the underlying ecological and transmission dynamics is often key to the design of
+                    effective control strategies for infectious disease. The IDD lab at Charité Center for Global Health
+                    connects an interdisciplinary group of experts in mathematical modelling, statistics, clinical
+                    trials, and policy.</p>
+                <p>We work in close connection with other centres and international collaborators to increase our
+                    understanding of disease dynamics and thereby disease prevention. We also host the secretariat to
+                    the Berlin Infectious Disease Dynamics Expertise network (B-IDDE) and the Pneumococcal and Pneumonia
+                    INterest Group (PING)</p>
+            </div>
+            <div class="about-links glass">
+                <h3>Our Network</h3>
+                <ul>
+                    <li><a href="https://globalhealth.charite.de/en/research/idd_infectious_disease_dynamics"
+                            target="_blank">CCGH IDD Theme →</a></li>
+                    <li><a href="https://github.com/ccgh-idd" target="_blank">GitHub Organization →</a></li>
+                    <li><a href="https://github.com/ccgh-idd" target="_blank">B-IDDE →</a></li>
+                    <li><a href="https://github.com/ccgh-idd" target="_blank"> PING →</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="research" class="research">
+        <div class="section-title reveal">
+            <h2>Research Foci</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="research-grid">
+            <div class="research-card glass reveal">
+                <div class="card-icon"><img src="Pics/Immunisation.png" alt="RSV" style="filter: hue-rotate(90deg);">
+                </div>
+                <h3>Immunisation</h3>
+                <p>Evaluating the optimal immunisation strategies for RSV, Pneumococci, Polio and others.</p>
+            </div>
+            <div class="research-card glass reveal">
+                <div class="card-icon"><img src="Pics/outbreaks.png" alt="AI"></div>
+                <h3>Outbreak Analytics</h3>
+                <p>Exploring advanced analytical methods and LLMs for enhanced outbreak response.</p>
+            </div>
+            <div class="research-card glass reveal">
+                <div class="card-icon"><img src="Pics/climate.png" alt="Climate Change"></div>
+                <h3>Climate & Evolution</h3>
+                <p>Evaluating changing disease risk and prevention strategies due to climate change and / or pathogen
+                    interaction.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="team">
+        <div class="section-title reveal">
+            <h2>Our Team</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="team-grid">
+            <!-- Group Leader -->
+            <div class="team-leader glass reveal">
+                <div class="team-image">
+                    <img src="Pics/flasche.png" alt="Stefan Flasche">
+                </div>
+                <div class="team-info">
+                    <h3>Prof. Stefan Flasche</h3>
+                    <p class="role">Group Leader</p>
+                    <p class="desc">Professor for Infectious Disease Dynamics and Global Health.</p>
+                    <a href="https://internationale-gesundheit.charite.de/metas/person/person/address_detail/professor_stefan_flasche"
+                        target="_blank" class="btn-small">Profile →</a>
+                </div>
+            </div>
+
+            <!-- Postdocs -->
+            <div class="team-category reveal">
+                <h3>Postdocs</h3>
+                <div class="member-grid">
+                    <div class="member-card glass">
+                        <img src="Pics/hodgson.png" class="mini-avatar" alt="David Hodgson">
+                        <h4>Dr. David Hodgson</h4>
+                        <p>Research Associate</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/quilty.png" class="mini-avatar" alt="Billy John Quilty">
+                        <h4>Dr. Billy John Quilty</h4>
+                        <p>Research Associate</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/kriznar.png" class="mini-avatar" alt="Matej Kriznar">
+                        <h4>Matej Kriznar</h4>
+                        <p>Researcher</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PhD Students -->
+            <div class="team-category reveal">
+                <h3>PhD Students</h3>
+                <div class="member-grid">
+                    <div class="member-card glass">
+                        <img src="Pics/masinde.png" class="mini-avatar" alt="Augustine Masinde">
+                        <h4>Augustine Masinde</h4>
+                        <p>PhD Student</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/dong.png" class="mini-avatar" alt="Kaige Dong">
+                        <h4>Kaige Dong</h4>
+                        <p>PhD Student</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/gong.png" class="mini-avatar" alt="Dexin Gong">
+                        <h4>Dexin Gong</h4>
+                        <p>PhD Student</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/hemmers_pauly.png" class="mini-avatar" alt="Lukas Hemmers-Pauly">
+                        <h4>Lukas Hemmers-Pauly</h4>
+                        <p>PhD Student</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/ingaiza.png" class="mini-avatar" alt="Lucy Mbone Ingaiza">
+                        <h4>Lucy Mbone Ingaiza</h4>
+                        <p>PhD Student</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/lais.png" class="mini-avatar" alt="Rebecca Sophia Lais">
+                        <h4>Rebecca Sophia Lais</h4>
+                        <p>PhD Student</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/mayer.png" class="mini-avatar" alt="Julia Mayer">
+                        <h4>Julia Stéphanie Mayer</h4>
+                        <p>PhD Student</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/soubrier.png" class="mini-avatar" alt="Hugo Soubrier">
+                        <h4>Hugo Soubrier</h4>
+                        <p>PhD Student</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/torres.png" class="mini-avatar" alt="Adriana Torres">
+                        <h4>Adriana Torres</h4>
+                        <p>PhD Student</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Management & Guests -->
+            <div class="team-category reveal">
+                <h3>Management & Guests</h3>
+                <div class="member-grid">
+                    <div class="member-card glass">
+                        <img src="Pics/HendrikO.jpg" class="mini-avatar" alt="Hendrik Oye">
+                        <h4>Hendrik Oye</h4>
+                        <p>Project Management</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/briga.png" class="mini-avatar" alt="Michael Briga">
+                        <h4>Dr. Michael Briga</h4>
+                        <p>Guest Researcher</p>
+                    </div>
+                    <div class="member-card glass">
+                        <img src="Pics/monoi.png" class="mini-avatar" alt="Ayaka Monoi">
+                        <h4>Ayaka Monoi</h4>
+                        <p>Guest Researcher</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="github" class="github-section glass reveal">
+        <div class="github-content">
+            <h2 class="reveal">Open Science</h2>
+            <p class="reveal">We are committed to transparent and reproducible research. Explore our open-source tools
+                and data
+                analysis pipelines on GitHub.</p>
+            <div class="github-links">
+                <a href="https://github.com/ccgh-idd/odin-monty-training" class="repo-card glass reveal">
+                    <span>Repository</span>
+                    <h4>odin-monty-training</h4>
+                    <p>Training materials for infectious disease dynamics.</p>
+                </a>
+                <a href="https://github.com/ccgh-idd/shiny-intro" class="repo-card glass reveal">
+                    <span>Repository</span>
+                    <h4>shiny-intro</h4>
+                    <p>Introduction to shiny dashboard development.</p>
+                </a>
+            </div>
+            <a href="https://github.com/ccgh-idd" target="_blank" class="btn btn-primary"
+                style="margin-top: 40px; display: inline-block;">View All Repositories</a>
+        </div>
+    </section>
+
+    <section id="news" class="news glass reveal">
+        <div class="section-title reveal">
+            <h2>Latest News & Highlights</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="news-grid">
+            <!-- Visible News Items (Max 3) -->
+            <div class="news-card glass reveal">
+                <div class="news-image">
+                    <img src="Pics/outbreaks.png" alt="News Image 1">
+                </div>
+                <div class="news-content">
+                    <span class="news-date">October 12, 2025</span>
+                    <h3>New Outbreak Analytics Model Published</h3>
+                    <p>Our team recently published a novel approach to utilizing LLMs in predicting early-stage outbreak
+                        clusters in urban environments.</p>
+                </div>
+            </div>
+
+            <div class="news-card glass reveal">
+                <div class="news-image">
+                    <img src="Pics/Immunisation.png" alt="News Image 2" style="filter: hue-rotate(90deg);">
+                </div>
+                <div class="news-content">
+                    <span class="news-date">September 28, 2025</span>
+                    <h3>Funding Secured for RSV Research</h3>
+                    <p>We are excited to announce a multi-year grant to evaluate the impact of novel RSV immunisation
+                        strategies across Europe.</p>
+                </div>
+            </div>
+
+            <div class="news-card glass reveal">
+                <div class="news-image">
+                    <img src="Pics/climate.png" alt="News Image 3">
+                </div>
+                <div class="news-content">
+                    <span class="news-date">August 15, 2025</span>
+                    <h3>Climate Impact Symposium</h3>
+                    <p>Members of the lab presented key findings on how shifting climate zones alter the transmission
+                        patterns of vector-borne diseases.</p>
+                </div>
+            </div>
+
+            <!-- Hidden News Items -->
+            <div class="news-card glass hidden-news">
+                <div class="news-image">
+                    <img src="Pics/Background.png" alt="News Image 4">
+                </div>
+                <div class="news-content">
+                    <span class="news-date">July 10, 2025</span>
+                    <h3>Welcome to the Team</h3>
+                    <p>We welcome our new PhD candidates who will be focusing on pneumococcal transmission models in the
+                        forthcoming academic year.</p>
+                </div>
+            </div>
+
+            <div class="news-card glass hidden-news">
+                <div class="news-image">
+                    <img src="Pics/flasche.png" alt="News Image 5">
+                </div>
+                <div class="news-content">
+                    <span class="news-date">June 22, 2025</span>
+                    <h3>B-IDDE Network Expands</h3>
+                    <p>The Berlin Infectious Disease Dynamics Expertise network has now grown to include 5 new
+                        participating institutions.</p>
+                </div>
+            </div>
+
+            <div class="news-card glass hidden-news">
+                <div class="news-image">
+                    <img src="Pics/outbreaks.png" alt="News Image 6">
+                </div>
+                <div class="news-content">
+                    <span class="news-date">May 05, 2025</span>
+                    <h3>Workshop on Data Integration</h3>
+                    <p>Our recent workshop on integrating clinical trial data into dynamic transmission models was a
+                        great success with over 100 participants.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="news-action reveal">
+            <button id="show-more-news" class="btn btn-secondary">Show More</button>
+        </div>
+    </section>
+
+    <section id="collaborations" class="collaborations glass reveal">
+        <div class="section-title reveal">
+            <h2>Global Collaborations</h2>
+            <div class="title-underline"></div>
+        </div>
+        <p style="text-align: center; margin-bottom: 2rem;">Highlighting our international network and joint
+            publications worldwide.</p>
+        <div id="map" class="map-container"></div>
+    </section>
+
+    <footer class="glass">
+        <div class="footer-content">
+            <div class="footer-logo">IDD<span>@ccgh</span></div>
+            <p>&copy; 2026 Infectious Disease Dynamics Lab | Charité Centre for Global Health</p>
+            <div class="footer-links">
+                <a href="https://globalhealth.charite.de/en/">CCGH</a>
+                <a href="https://www.charite.de/en/">Charité</a>
+                <a href="https://github.com/ccgh-idd">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        /* Embedded layout styles meant for quick start - will move to index.css if large */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="map.js"></script>
+
+    <script>
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Once animated, no need to observe anymore
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Typing Animation for Hero Header
+        function typeWriter() {
+            const header = document.getElementById('typing-header');
+            const fullHTML = header.innerHTML;
+            header.innerHTML = '';
+            header.style.opacity = '1';
+
+            let i = 0;
+            let isTag = false;
+            let text = '';
+
+            function type() {
+                if (i < fullHTML.length) {
+                    let char = fullHTML.charAt(i);
+
+                    if (char === '<') isTag = true;
+
+                    text += char;
+
+                    if (char === '>') isTag = false;
+
+                    if (isTag) {
+                        i++;
+                        type();
+                        return;
+                    }
+
+                    header.innerHTML = text;
+                    i++;
+                    setTimeout(type, 30);
+                } else {
+                    // Remove cursor after finished typing
+                    setTimeout(() => {
+                        header.classList.remove('typing-cursor');
+                    }, 1000);
+
+                    // Fade in description and buttons
+                    document.getElementById('hero-subtitle').classList.add('show');
+                    document.getElementById('hero-buttons').classList.add('show');
+                }
+            }
+            type();
+        }
+
+        // Burger menu toggle
+        const burger = document.getElementById('burger');
+        const navLinks = document.getElementById('nav-links');
+
+        burger.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            burger.classList.toggle('open', isOpen);
+            burger.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close menu when a nav link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                burger.classList.remove('open');
+                burger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // News Section "Show More" Functionality
+        const showMoreBtn = document.getElementById('show-more-news');
+        const hiddenNewsCards = document.querySelectorAll('.hidden-news');
+        let isExpanded = false;
+
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', () => {
+                isExpanded = !isExpanded;
+
+                hiddenNewsCards.forEach(card => {
+                    if (isExpanded) {
+                        card.classList.add('visible');
+                        // Add small delay for staggered reveal if desired
+                    } else {
+                        card.classList.remove('visible');
+                    }
+                });
+
+                showMoreBtn.textContent = isExpanded ? 'Show Less' : 'Show More';
+            });
+        }
+
+        // Initialize typing animation on load
+        window.addEventListener('load', () => {
+            // Slight delay for better effect
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+</body>
+
+</html>
