@@ -1,38 +1,64 @@
-// Initialize the map, centered roughly over Europe/Africa for a global view
-const map = L.map('map').setView([20, 0], 2);
+// Initialize the map, centered to show global connections
+const map = L.map('map').setView([20, 10], 2);
 
-// Add standard OpenStreetMap tiles
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+// Add Grayscale Tiles (CartoDB Positron)
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
 }).addTo(map);
 
-// Define collaborations data directly to allow local file viewing without CORS issues
+// Add the grayscale class for additional CSS filtering if needed
+document.getElementById('map').classList.add('map-grayscale');
+
+const berlinCoords = [52.5260, 13.3777];
+
+// Revised collaboration locations
 const locations = [
-    { "name": "London School of Hygiene & Tropical Medicine, UK", "lat": 51.5207, "lon": -0.1296, "count": 45 },
-    { "name": "Charité - Universitätsmedizin Berlin, Germany", "lat": 52.5260, "lon": 13.3777, "count": 28 },
-    { "name": "Nagasaki University, Japan", "lat": 32.7745, "lon": 129.8643, "count": 12 },
-    { "name": "Mahidol-Oxford Tropical Medicine Research Unit, Thailand", "lat": 13.7650, "lon": 100.5255, "count": 15 },
-    { "name": "KEMRI-Wellcome Trust Research Programme, Kenya", "lat": -3.5855, "lon": 39.8459, "count": 18 },
-    { "name": "Yale School of Public Health, USA", "lat": 41.3039, "lon": -72.9298, "count": 8 },
-    { "name": "Emory University, USA", "lat": 33.7925, "lon": -84.3240, "count": 7 },
-    { "name": "World Health Organization, Switzerland", "lat": 46.2044, "lon": 6.1432, "count": 22 },
-    { "name": "RIVM, Netherlands", "lat": 52.1226, "lon": 5.1837, "count": 10 },
-    { "name": "University of Melbourne, Australia", "lat": -37.7964, "lon": 144.9612, "count": 5 },
-    { "name": "FIOCRUZ, Brazil", "lat": -22.8757, "lon": -43.2454, "count": 6 },
-    { "name": "University of the Witwatersrand, South Africa", "lat": -26.1898, "lon": 28.0306, "count": 14 },
-    { "name": "Oxford University, UK", "lat": 51.7520, "lon": -1.2577, "count": 30 },
-    { "name": "Christian Medical College Vellore, India", "lat": 12.9279, "lon": 79.1329, "count": 9 },
-    { "name": "National University of Singapore, Singapore", "lat": 1.2966, "lon": 103.7764, "count": 4 },
-    { "name": "Harvard T.H. Chan School of Public Health, USA", "lat": 42.3353, "lon": -71.1026, "count": 11 }
+    { "name": "London School of Hygiene & Tropical Medicine", "city": "London, UK", "lat": 51.5207, "lon": -0.1296 },
+    { "name": "Nagasaki University", "city": "Nagasaki, Japan", "lat": 32.7745, "lon": 129.8643 },
+    { "name": "University of Edinburgh", "city": "Edinburgh, UK", "lat": 55.9443, "lon": -3.1883 },
+    { "name": "Wellcome Sanger Institute", "city": "Hinxton, UK", "lat": 52.0792, "lon": 0.1856 },
+    { "name": "Robert Koch Institute", "city": "Berlin, Germany", "lat": 52.5398, "lon": 13.3486 },
+    { "name": "World Health Organization", "city": "Geneva, Switzerland", "lat": 46.2044, "lon": 6.1432 },
+    { "name": "Yale School of Public Health", "city": "New Haven, USA", "lat": 41.3039, "lon": -72.9298 },
+    { "name": "Malawi Liverpool Wellcome Trust", "city": "Blantyre, Malawi", "lat": -15.8055, "lon": 35.0062 },
+    { "name": "KEMRI-Wellcome Trust", "city": "Kilifi, Kenya", "lat": -3.6333, "lon": 39.8500 },
+    { "name": "NICD South Africa", "city": "Johannesburg, South Africa", "lat": -26.1265, "lon": 28.1258 },
+    { "name": "MRC Unit The Gambia", "city": "Fajara, Gambia", "lat": 13.4735, "-16.6749": -16.6749 },
+    { "name": "Pasteur Institute Nha Trang", "city": "Nha Trang, Vietnam", "lat": 12.2471, "lon": 109.1965 },
+    { "name": "Save the Children Somalia", "city": "Hargeisa, Somalia", "lat": 9.5624, "lon": 44.0770 },
+    { "name": "Murdoch Children's Research Institute", "city": "Melbourne, Australia", "lat": -37.7964, "lon": 144.9612 },
+    { "name": "Helmholtz Centre for Infection Research", "city": "Hannover, Germany", "lat": 52.3486, "lon": 10.0163 }
 ];
 
-locations.forEach(location => {
-    // Include count if available, otherwise just name
-    const popupText = `<strong>${location.name}</strong><br>` +
-        (location.count ? `Collaborations/Publications: ${location.count}` : '');
+// Custom modern marker icon
+const modernIcon = L.divIcon({
+    className: 'modern-marker',
+    html: '<div style="width: 12px; height: 12px; background: #004a99; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.3);"></div>',
+    iconSize: [12, 12],
+    iconAnchor: [6, 6]
+});
 
-    L.marker([location.lat, location.lon])
+// Home marker (Berlin)
+L.marker(berlinCoords, { icon: modernIcon }).addTo(map)
+    .bindPopup('<strong>IDD @ Charité Center for Global Health</strong><br>Berlin, Germany');
+
+locations.forEach(loc => {
+    // Correct for the typo in MRC Gambia if needed or just use lon
+    const lon = loc.lon || loc["-16.6749"];
+    
+    // Add Marker
+    L.marker([loc.lat, lon], { icon: modernIcon })
         .addTo(map)
-        .bindPopup(popupText);
+        .bindPopup(`<strong>${loc.name}</strong><br>${loc.city}`);
+
+    // Add Connection Line to Berlin
+    L.polyline([berlinCoords, [loc.lat, lon]], {
+        color: '#004a99',
+        weight: 1.5,
+        opacity: 0.4,
+        dashArray: '5, 10',
+        lineCap: 'round'
+    }).addTo(map);
 });

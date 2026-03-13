@@ -271,6 +271,16 @@ section {
     }
 }
 
+@media (max-width: 768px) {
+    .map-container {
+        height: 350px;
+    }
+}
+
+.map-grayscale .leaflet-tile {
+    filter: grayscale(100%) contrast(1.1) brightness(1.05);
+}
+
 /* Navigation */
 nav {
     position: sticky;
@@ -671,10 +681,14 @@ nav {
 }
 
 .member-card {
-    padding: 18px;
+    padding: 25px;
     border-radius: 20px;
     text-align: center;
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 }
 
 .member-card:hover {
@@ -683,11 +697,13 @@ nav {
 }
 
 .mini-avatar {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     margin: 0 auto 20px;
     border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    object-fit: cover;
+    display: block;
 }
 
 .member-card h4 {
