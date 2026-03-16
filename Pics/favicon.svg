@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <rect width="512" height="512" rx="112" fill="#004a99"/>
+    <circle cx="400" cy="112" r="44" fill="#00a651"/>
+    <text x="49%" y="55%" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="220" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" letter-spacing="-2">IDD</text>
+</svg>
