@@ -285,7 +285,7 @@
                 </div>
             </div>
 
-            <div class="news-card glass hidden-news">
+            <div class="news-card glass reveal">
                 <a href="https://www.medrxiv.org/" target="_blank" style="text-decoration: none; color: inherit; display: contents;">
                 <div class="news-image">
                     <img src="Pics/medrxiv_logo.png" alt="medRxiv Logo">
@@ -301,8 +301,7 @@
                 </div>
             </div>
 
-            <!-- Hidden News Items -->
-            <div class="news-card glass hidden-news">
+            <div class="news-card glass reveal">
                 <a href="https://globalhealth.charite.de/en/metas/news/artikel/detail/humanitarian_modelling_dialogue_workshop_bridging_modelling_humanitarian_action" target="_blank" style="text-decoration: none; color: inherit; display: contents;">
                 <div class="news-image">
                     <img src="Pics/humod.png" alt="HUMOD Workshop Logo">
@@ -317,7 +316,7 @@
                 </div>
             </div>
 
-            <div class="news-card glass hidden-news">
+            <div class="news-card glass reveal">
                 <div class="news-image">
                     <img src="Pics/retreat.png" alt="IDD Lab Retreat">
                 </div>
@@ -487,19 +486,33 @@
 
         // News Section "Show More" Functionality
         const showMoreBtn = document.getElementById('show-more-news');
-        const hiddenNewsCards = document.querySelectorAll('.hidden-news');
+        const newsCards = document.querySelectorAll('.news-grid .news-card');
+        const itemsToShow = 4;
         let isExpanded = false;
 
+        // Automatically hide items beyond the limit on load
+        newsCards.forEach((card, index) => {
+            if (index >= itemsToShow) {
+                card.classList.add('hidden-news');
+            }
+        });
+
         if (showMoreBtn) {
+            // Hide the button container if we don't have enough items to show more
+            if (newsCards.length <= itemsToShow) {
+                showMoreBtn.parentElement.style.display = 'none';
+            }
+
             showMoreBtn.addEventListener('click', () => {
                 isExpanded = !isExpanded;
 
-                hiddenNewsCards.forEach(card => {
-                    if (isExpanded) {
-                        card.classList.add('visible');
-                        // Add small delay for staggered reveal if desired
-                    } else {
-                        card.classList.remove('visible');
+                newsCards.forEach((card, index) => {
+                    if (index >= itemsToShow) {
+                        if (isExpanded) {
+                            card.classList.add('visible');
+                        } else {
+                            card.classList.remove('visible');
+                        }
                     }
                 });
 
