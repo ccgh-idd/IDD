@@ -29,7 +29,8 @@ const locations = [
     { "name": "Pasteur Institute Nha Trang", "city": "Nha Trang, Vietnam", "lat": 12.2471, "lon": 109.1965 },
     { "name": "Save the Children Somalia", "city": "Hargeisa, Somalia", "lat": 9.5624, "lon": 44.0770 },
     { "name": "Murdoch Children's Research Institute", "city": "Melbourne, Australia", "lat": -37.7964, "lon": 144.9612 },
-    { "name": "Helmholtz Centre for Infection Research", "city": "Hannover, Germany", "lat": 52.3486, "lon": 10.0163 }
+    { "name": "Helmholtz Centre for Infection Research", "city": "Hannover, Germany", "lat": 52.3486, "lon": 10.0163 },
+    { "name": "MASHA at University of Cape Town", "city": "Cape Town, South Africa", "lat": -33.9249, "lon": 18.4241 }
 ];
 
 // Custom modern marker icon
