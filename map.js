@@ -25,7 +25,7 @@ const locations = [
     { "name": "Malawi Liverpool Wellcome Trust", "city": "Blantyre, Malawi", "lat": -15.8055, "lon": 35.0062 },
     { "name": "KEMRI-Wellcome Trust", "city": "Kilifi, Kenya", "lat": -3.6333, "lon": 39.8500 },
     { "name": "NICD South Africa", "city": "Johannesburg, South Africa", "lat": -26.1265, "lon": 28.1258 },
-    { "name": "MRC Unit The Gambia", "city": "Fajara, Gambia", "lat": 13.4735, "-16.6749": -16.6749 },
+    { "name": "MRC Unit The Gambia", "city": "Fajara, Gambia", "lat": 13.4735, "lon": -16.6749 },
     { "name": "Pasteur Institute Nha Trang", "city": "Nha Trang, Vietnam", "lat": 12.2471, "lon": 109.1965 },
     { "name": "Save the Children Somalia", "city": "Hargeisa, Somalia", "lat": 9.5624, "lon": 44.0770 },
     { "name": "Murdoch Children's Research Institute", "city": "Melbourne, Australia", "lat": -37.7964, "lon": 144.9612 },
