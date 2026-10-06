@@ -39,7 +39,7 @@
     <header class="hero">
         <div class="hero-bg animate-fade"></div>
         <div class="hero-content animate-fade">
-            <h1 id="typing-header" class="typing-cursor">Infectious Disease Dynamics in<br><span>Global Health </span>
+            <h1 id="typing-header">Infectious Disease Dynamics in<br><span class="hero-highlight">Global Health </span>
             </h1>
             <p id="hero-subtitle">The Infectious Disease Dynamics group at the Charité Centre for Global Health
                 investigates disease
@@ -452,48 +452,68 @@
             observer.observe(el);
         });
 
-        // Typing Animation for Hero Header
-        function typeWriter() {
+        // Hero header: starts as "IDD in GH", the letters glide to their places in the
+        // full title, then the rest of each word is revealed in place
+        function revealHeader() {
             const header = document.getElementById('typing-header');
-            const fullHTML = header.innerHTML;
-            header.innerHTML = '';
+            const word = (initial, rest) => {
+                const w = document.createElement('span');
+                w.className = 'hero-word';
+                const i = document.createElement('span');
+                i.className = 'hero-initial';
+                i.textContent = initial;
+                w.append(i);
+                if (rest) {
+                    const r = document.createElement('span');
+                    r.className = 'hero-rest';
+                    r.textContent = rest;
+                    w.append(r);
+                }
+                return w;
+            };
+            const highlight = document.createElement('span');
+            highlight.className = 'hero-highlight';
+            highlight.append(word('G', 'lobal\u00a0'), word('H', 'ealth'));
+
+            header.replaceChildren(
+                word('I', 'nfectious\u00a0'), word('D', 'isease\u00a0'), word('D', 'ynamics'),
+                ' ', word('in'), document.createElement('br'), highlight
+            );
             header.style.opacity = '1';
 
-            let i = 0;
-            let isTag = false;
-            let text = '';
+            // Measure where each letter sits in the full title and in "IDD in GH",
+            // then offset the letters so they start in the short form
+            const initials = [...header.querySelectorAll('.hero-initial')];
+            const rests = [...header.querySelectorAll('.hero-rest')];
+            const finalPos = initials.map(el => el.getBoundingClientRect());
+            rests.forEach(r => r.classList.add('collapsed'));
+            const startPos = initials.map(el => el.getBoundingClientRect());
+            rests.forEach(r => r.classList.remove('collapsed'));
+            initials.forEach((el, i) => {
+                const dx = startPos[i].left - finalPos[i].left;
+                const dy = startPos[i].top - finalPos[i].top;
+                el.style.transform = `translate(${dx}px, ${dy}px)`;
+            });
 
-            function type() {
-                if (i < fullHTML.length) {
-                    let char = fullHTML.charAt(i);
+            // Step 1: glide the letters to their final places
+            const glideAt = 1800;
+            setTimeout(() => {
+                initials.forEach(el => {
+                    el.classList.add('glide');
+                    el.style.transform = '';
+                });
+            }, glideAt);
 
-                    if (char === '<') isTag = true;
+            // Step 2: reveal the rest of each word in place
+            const revealAt = glideAt + 1600;
+            setTimeout(() => rests.forEach(r => r.classList.add('open')), revealAt);
 
-                    text += char;
-
-                    if (char === '>') isTag = false;
-
-                    if (isTag) {
-                        i++;
-                        type();
-                        return;
-                    }
-
-                    header.innerHTML = text;
-                    i++;
-                    setTimeout(type, 30);
-                } else {
-                    // Remove cursor after finished typing
-                    setTimeout(() => {
-                        header.classList.remove('typing-cursor');
-                    }, 1000);
-
-                    // Fade in description and buttons
-                    document.getElementById('hero-subtitle').classList.add('show');
-                    document.getElementById('hero-buttons').classList.add('show');
-                }
-            }
-            type();
+            // Then sweep "Global Health" to green and fade in description and buttons
+            setTimeout(() => {
+                highlight.classList.add('shimmer');
+                document.getElementById('hero-subtitle').classList.add('show');
+                document.getElementById('hero-buttons').classList.add('show');
+            }, revealAt + 1800);
         }
 
         // Burger menu toggle
@@ -551,10 +571,9 @@
             });
         }
 
-        // Initialize typing animation on load
+        // Initialize hero animation on load
         window.addEventListener('load', () => {
-            // Slight delay for better effect
-            setTimeout(typeWriter, 500);
+            setTimeout(revealHeader, 300);
         });
     </script>
 </body>

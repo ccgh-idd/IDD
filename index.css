@@ -143,8 +143,8 @@ h4 {
     text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.hero h1 span {
-    color: var(--secondary);
+.hero h1 .hero-word {
+    color: var(--primary);
 }
 
 .hero p {
@@ -165,6 +165,85 @@ h4 {
 
 .hero-content .show {
     opacity: 1;
+}
+
+.hero-word {
+    display: inline-block;
+    opacity: 0;
+    animation: wordReveal 0.6s ease forwards;
+}
+
+@keyframes wordReveal {
+    to {
+        opacity: 1;
+    }
+}
+
+.hero h1 .hero-highlight .hero-word {
+    color: var(--primary);
+}
+
+/* "IDD in GH": letters glide to their final places, then the words are revealed */
+.hero-initial {
+    display: inline-block;
+}
+
+.hero-initial.glide {
+    transition: transform 1.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.hero-rest {
+    display: inline-block;
+    white-space: pre;
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 1.4s cubic-bezier(0.65, 0, 0.35, 1), opacity 1s ease;
+}
+
+.hero-rest.collapsed {
+    display: none;
+}
+
+.hero-rest.open {
+    opacity: 1;
+    clip-path: inset(0 -10% -20% 0);
+}
+
+/* Sweep that turns "Global Health" from blue to green */
+.hero h1 .hero-highlight.shimmer .hero-word {
+    background: linear-gradient(110deg, var(--secondary) 45%, #7fffb5 50%, var(--primary) 55%);
+    background-size: 250% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 1;
+    filter: none;
+    transform: none;
+    animation: shimmer 1.6s ease-in-out forwards;
+}
+
+@keyframes shimmer {
+    to { background-position: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-rest,
+    .hero-initial.glide {
+        transition: none;
+    }
+
+    .hero-word, .hero h1 .hero-highlight.shimmer .hero-word {
+        animation: none;
+        opacity: 1;
+        filter: none;
+        transform: none;
+    }
+
+    .hero h1 .hero-highlight .hero-word {
+        background: none;
+        color: var(--secondary);
+    }
 }
 
 /* Buttons */
