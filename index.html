@@ -11,7 +11,7 @@
     <link rel="icon" type="image/svg+xml" href="Pics/favicon.svg?v=3">
     <link rel="icon" type="image/png" sizes="512x512" href="Pics/favicon-512.png?v=3">
     <link rel="apple-touch-icon" href="Pics/favicon-512.png?v=3">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css?v=2026-10-06">
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -429,7 +429,7 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="map.js"></script>
+    <script src="map.js?v=2026-10-06"></script>
 
     <script>
         // Scroll Reveal Animation
@@ -573,7 +573,8 @@
 
         // Initialize hero animation on load
         window.addEventListener('load', () => {
-            setTimeout(revealHeader, 300);
+            // Wait for the title font so letter positions are measured correctly
+            document.fonts.ready.then(() => setTimeout(revealHeader, 300));
         });
     </script>
 </body>
