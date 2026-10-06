@@ -94,5 +94,11 @@
         "lat": 42.3353,
         "lon": -71.1026,
         "count": 11
+    },
+    {
+        "name": "German-West African Centre for Global Health Research, Ghana",
+        "lat": 5.5580,
+        "lon": -0.2014,
+        "count": 12
     }
 ]
