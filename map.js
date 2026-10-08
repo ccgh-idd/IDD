@@ -36,27 +36,24 @@ const locations = [
 // Custom modern marker icon
 const modernIcon = L.divIcon({
     className: 'modern-marker',
-    html: '<div style="width: 12px; height: 12px; background: #004a99; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.3);"></div>',
+    html: '<div style="width: 12px; height: 12px; background: #0d9aa9; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 10px rgba(0,37,82,0.3);"></div>',
     iconSize: [12, 12],
     iconAnchor: [6, 6]
 });
 
 // Home marker (Berlin)
 L.marker(berlinCoords, { icon: modernIcon }).addTo(map)
-    .bindPopup('<strong>IDD @ Charité Center for Global Health</strong><br>Berlin, Germany');
+    .bindPopup('<strong>IDD @ Charité Center for Global Health</strong><span>Berlin, Germany</span>');
 
 locations.forEach(loc => {
-    // Correct for the typo in MRC Gambia if needed or just use lon
-    const lon = loc.lon || loc["-16.6749"];
-    
     // Add Marker
-    L.marker([loc.lat, lon], { icon: modernIcon })
+    L.marker([loc.lat, loc.lon], { icon: modernIcon })
         .addTo(map)
-        .bindPopup(`<strong>${loc.name}</strong><br>${loc.city}`);
+        .bindPopup(`<strong>${loc.name}</strong><span>${loc.city}</span>`);
 
     // Add Connection Line to Berlin
-    L.polyline([berlinCoords, [loc.lat, lon]], {
-        color: '#004a99',
+    L.polyline([berlinCoords, [loc.lat, loc.lon]], {
+        color: '#002552',
         weight: 1.5,
         opacity: 0.4,
         dashArray: '5, 10',
