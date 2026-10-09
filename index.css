@@ -331,6 +331,10 @@ h4 {
 
 .about-links ul {
     list-style: none;
+    /* up to two columns when the box is wide enough, one otherwise */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(170px, calc(50% - 10px)), 1fr));
+    column-gap: 20px;
 }
 
 .about-links li {
@@ -1053,4 +1057,151 @@ footer {
 
 .github-section {
     margin-top: 100px;
+}
+
+/* Team profile pop-up */
+.member-card.has-profile {
+    cursor: pointer;
+}
+
+.member-card.has-profile:focus-visible {
+    outline: 3px solid var(--secondary);
+    outline-offset: 4px;
+}
+
+.member-dialog {
+    width: min(680px, calc(100% - 2rem));
+    max-height: min(720px, calc(100dvh - 2rem));
+    margin: auto;
+    padding: 0;
+    border: 1px solid rgba(0, 37, 82, 0.1);
+    border-radius: 24px;
+    color: var(--text-dark);
+    background: white;
+    box-shadow: 0 28px 80px rgba(0, 37, 82, 0.24);
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+    transform-origin: var(--origin-x, center) var(--origin-y, center);
+    transition: opacity 180ms ease-out, transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.member-dialog.is-visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.member-dialog::backdrop {
+    background: rgba(0, 37, 82, 0.42);
+    backdrop-filter: blur(4px);
+}
+
+.member-dialog-content {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: 1.4rem;
+    align-items: center;
+    padding: 2rem;
+}
+
+.member-dialog-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow);
+}
+
+.member-dialog h2 {
+    margin: 0 2rem 0.35rem 0;
+    color: var(--primary);
+    font-size: 2rem;
+    line-height: 1.1;
+}
+
+.member-dialog-role {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.member-dialog-bio,
+.member-dialog-topics,
+.member-dialog-link {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+.member-dialog-bio {
+    color: var(--text-light);
+}
+
+.member-dialog-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.member-dialog-topics span {
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.member-dialog-link a {
+    color: var(--secondary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.member-dialog-link a:hover {
+    text-decoration: underline;
+}
+
+.member-dialog-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    border-radius: 50%;
+    color: var(--text-light);
+    background: rgba(0, 37, 82, 0.07);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.member-dialog-close:hover,
+.member-dialog-close:focus-visible {
+    color: white;
+    background: var(--secondary);
+    outline: none;
+}
+
+@media (max-width: 600px) {
+    .member-dialog-content {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .member-dialog-photo {
+        width: 112px;
+        height: 112px;
+        justify-self: center;
+    }
+
+    .member-dialog h2 {
+        margin: 0 0 0.35rem;
+        font-size: 1.6rem;
+    }
+
+    .member-dialog-topics {
+        justify-content: center;
+    }
 }

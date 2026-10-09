@@ -102,9 +102,8 @@
                     connects an interdisciplinary group of experts in mathematical modelling, statistics, clinical
                     trials, and policy.</p>
                 <p>We work in close connection with other centres and international collaborators to increase our
-                    understanding of disease dynamics and thereby disease prevention. We also host the secretariat to
-                    Charite's IDD theme, the Berlin Infectious Disease Dynamics Expertise network (B-IDDE) and the Pneumococcal and Pneumonia
-                    INterest Group (PING). We are also an associated member of the Modeling Network for Severe Infectious Diseases (MONID).</p>
+                    understanding of disease dynamics and thereby disease prevention. We host the secretariat to Charite's IDD theme, the Berlin Infectious Disease Dynamics Expertise network (B-IDDE) and the Pneumococcal and Pneumonia
+                    INterest Group (PING). We are also an associated member of the Modeling Network for Severe Infectious Diseases (MONID) and run an annual short course: 'Infectious Disease DynamicsIntroduction to Data Analytics and Mathematical Modelling'.</p>
             </div>
             <div class="about-links glass">
                 <h3>See also:</h3>
@@ -115,6 +114,7 @@
                     <li><a href="https://bidde.ccgh-idd.de" target="_blank">B-IDDE →</a></li>
                     <li><a href="https://ping.ccgh-idd.de" target="_blank"> PING →</a></li>
                     <li><a href="https://monid.net/en/" target="_blank">MONID →</a></li>
+                    <li><a href="https://course.ccgh-idd.de/" target="_blank">IDD Short Course →</a></li>
                 </ul>
             </div>
         </div>
@@ -438,6 +438,11 @@
         <div id="map" class="map-container"></div>
     </section>
 
+    <dialog class="member-dialog" id="member-dialog" aria-labelledby="member-dialog-name">
+        <button class="member-dialog-close" type="button" aria-label="Close profile">&times;</button>
+        <div class="member-dialog-content" id="member-dialog-content"></div>
+    </dialog>
+
     <footer class="glass">
         <div class="footer-content">
             <div class="footer-logo"><img src="Pics/ccgh-logo.png" alt="Charité Center for Global Health"><span>IDD</span></div>
@@ -467,6 +472,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="map.js?v=2026-10-06"></script>
+    <script src="team-data.js?v=2026-10-09b"></script>
 
     <script>
         // Scroll Reveal Animation
@@ -570,6 +576,59 @@
                 burger.classList.remove('open');
                 burger.setAttribute('aria-expanded', 'false');
             });
+        });
+
+        // Team profile pop-ups (same pattern as the course faculty page)
+        const memberDialog = document.getElementById('member-dialog');
+        const memberDialogContent = document.getElementById('member-dialog-content');
+
+        function closeMemberDialog() {
+            memberDialog.classList.remove('is-visible');
+            memberDialog.close();
+        }
+
+        function openMemberProfile(card) {
+            const img = card.querySelector('.mini-avatar');
+            const member = window.teamData[img.alt];
+            memberDialogContent.innerHTML = `
+                <img class="member-dialog-photo" src="${img.src}" alt="${img.alt}">
+                <div>
+                    <h2 id="member-dialog-name">${card.querySelector('h4').textContent}</h2>
+                    <div class="member-dialog-role">${card.querySelector('p').textContent}</div>
+                </div>
+                <p class="member-dialog-bio">${member.bio}</p>
+                <div class="member-dialog-topics">${member.topics.map(t => `<span>${t}</span>`).join('')}</div>
+                <p class="member-dialog-link"><a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">View profile →</a></p>
+            `;
+            memberDialog.classList.remove('is-visible');
+            memberDialog.showModal();
+            // grow the dialog out of the clicked card
+            const dialogRect = memberDialog.getBoundingClientRect();
+            const cardRect = card.getBoundingClientRect();
+            memberDialog.style.setProperty('--origin-x', `${cardRect.left + cardRect.width / 2 - dialogRect.left}px`);
+            memberDialog.style.setProperty('--origin-y', `${cardRect.top + cardRect.height / 2 - dialogRect.top}px`);
+            requestAnimationFrame(() => memberDialog.classList.add('is-visible'));
+        }
+
+        document.querySelectorAll('.member-card').forEach(card => {
+            const img = card.querySelector('.mini-avatar');
+            if (!img || !window.teamData[img.alt]) return;
+            card.classList.add('has-profile');
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', `Open profile for ${img.alt}`);
+            card.addEventListener('click', () => openMemberProfile(card));
+            card.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openMemberProfile(card);
+                }
+            });
+        });
+
+        memberDialog.querySelector('.member-dialog-close').addEventListener('click', closeMemberDialog);
+        memberDialog.addEventListener('click', e => {
+            if (e.target === memberDialog) closeMemberDialog();
         });
 
         // News Section "Show More" Functionality
