@@ -695,6 +695,66 @@
             document.fonts.ready.then(() => setTimeout(revealHeader, 300));
         });
     </script>
+    <script>
+        // Hero microbes: inline the SVG so each microbe can drift away from the cursor
+        (function () {
+            const bg = document.querySelector('.hero-bg');
+            const hero = document.querySelector('.hero');
+            if (!bg || !hero || !window.fetch) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            fetch('Pics/hero-microbes.svg').then(r => r.text()).then(txt => {
+                bg.innerHTML = txt;
+                const svg = bg.querySelector('svg');
+                if (!svg) return;
+                svg.setAttribute('width', '100%');
+                svg.setAttribute('height', '100%');
+                svg.style.display = 'block';
+                const items = [...svg.querySelectorAll('g.m')].map(m => {
+                    const w = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                    m.parentNode.insertBefore(w, m);
+                    w.appendChild(m);
+                    return { w, x: 0, y: 0, tx: 0, ty: 0 };
+                });
+                const RADIUS = 220, PUSH = 90;   // in SVG units
+                let mouse = null, running = false;
+
+                function frame() {
+                    const ctm = svg.getScreenCTM();
+                    let moving = false;
+                    items.forEach(it => {
+                        it.tx = 0; it.ty = 0;
+                        if (mouse && ctm) {
+                            const r = it.w.getBoundingClientRect();
+                            // centre in SVG units, minus the current offset = resting position
+                            const cx = (r.left + r.width / 2 - ctm.e) / ctm.a - it.x;
+                            const cy = (r.top + r.height / 2 - ctm.f) / ctm.d - it.y;
+                            const dx = cx - mouse.x, dy = cy - mouse.y;
+                            const d = Math.hypot(dx, dy) || 1;
+                            if (d < RADIUS) {
+                                const f = PUSH * Math.pow(1 - d / RADIUS, 2);
+                                it.tx = dx / d * f; it.ty = dy / d * f;
+                            }
+                        }
+                        it.x += (it.tx - it.x) * 0.04;   // slow ease
+                        it.y += (it.ty - it.y) * 0.04;
+                        if (Math.abs(it.tx - it.x) > 0.1 || Math.abs(it.ty - it.y) > 0.1) moving = true;
+                        it.w.setAttribute('transform', `translate(${it.x.toFixed(2)},${it.y.toFixed(2)})`);
+                    });
+                    running = moving || !!mouse;
+                    if (running) requestAnimationFrame(frame);
+                }
+                function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
+
+                hero.addEventListener('mousemove', e => {
+                    const ctm = svg.getScreenCTM();
+                    if (!ctm) return;
+                    mouse = { x: (e.clientX - ctm.e) / ctm.a, y: (e.clientY - ctm.f) / ctm.d };
+                    kick();
+                });
+                hero.addEventListener('mouseleave', () => { mouse = null; kick(); });
+            }).catch(() => {});
+        })();
+    </script>
 </body>
 
 </html>
