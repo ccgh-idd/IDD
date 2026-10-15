@@ -10,14 +10,14 @@ const locations = [
     { "name": "Robert Koch Institute", "city": "Berlin, Germany", "lat": 52.5398, "lon": 13.3486 },
     { "name": "World Health Organization", "city": "Geneva, Switzerland", "lat": 46.2044, "lon": 6.1432 },
     { "name": "Yale School of Public Health", "city": "New Haven, USA", "lat": 41.3039, "lon": -72.9298 },
-    { "name": "Malawi Liverpool Wellcome Trust", "city": "Blantyre, Malawi", "lat": -15.8055, "lon": 35.0062 },
-    { "name": "KEMRI-Wellcome Trust", "city": "Kilifi, Kenya", "lat": -3.6333, "lon": 39.8500 },
+    { "name": "Malawi Liverpool Wellcome Programme", "city": "Blantyre, Malawi", "lat": -15.8055, "lon": 35.0062 },
+    { "name": "KEMRI-Wellcome Trust Research Programme", "city": "Kilifi, Kenya", "lat": -3.6333, "lon": 39.8500 },
     { "name": "NICD South Africa", "city": "Johannesburg, South Africa", "lat": -26.1265, "lon": 28.1258 },
-    { "name": "MRC Unit The Gambia", "city": "Fajara, Gambia", "lat": 13.4735, "lon": -16.6749 },
+    { "name": "MRC Unit The Gambia", "city": "Fajara, The Gambia", "lat": 13.4735, "lon": -16.6749 },
     { "name": "Pasteur Institute Nha Trang", "city": "Nha Trang, Vietnam", "lat": 12.2471, "lon": 109.1965 },
     { "name": "Save the Children Somalia", "city": "Hargeisa, Somalia", "lat": 9.5624, "lon": 44.0770 },
     { "name": "Murdoch Children's Research Institute", "city": "Melbourne, Australia", "lat": -37.7964, "lon": 144.9612 },
-    { "name": "Helmholtz Centre for Infection Research", "city": "Hannover, Germany", "lat": 52.3486, "lon": 10.0163 },
+    { "name": "Helmholtz Centre for Infection Research", "city": "Braunschweig, Germany", "lat": 52.2306, "lon": 10.5258 },
     { "name": "MASHA at University of Cape Town", "city": "Cape Town, South Africa", "lat": -33.9249, "lon": 18.4241 },
     { "name": "German-West African Centre for Global Health Research", "city": "Accra, Ghana", "lat": 5.5580, "lon": -0.2014 }
 ];
@@ -25,10 +25,25 @@ const locations = [
 const homeLoc = { name: "IDD @ Charité Center for Global Health", city: "Berlin, Germany", lat: berlinCoords[0], lon: berlinCoords[1], home: true };
 const allLocs = [homeLoc, ...locations];
 
+// Text list of the same partners, sorted by name
+const partnerList = document.getElementById('partner-list');
+if (partnerList) {
+    [...locations].sort((a, b) => a.name.localeCompare(b.name)).forEach(l => {
+        const li = document.createElement('li');
+        li.textContent = l.name;
+        const city = document.createElement('span');
+        city.textContent = l.city;
+        li.append(city);
+        partnerList.append(li);
+    });
+}
+
 (async function initGlobe() {
     const container = document.getElementById('map');
     container.classList.add('globe-container');
-    const svg = d3.select(container).append('svg');
+    // Read out as one image; the partner list is the text equivalent
+    container.setAttribute('aria-label', `Globe showing ${locations.length} partner institutions; the full list is under Partners`);
+    const svg = d3.select(container).append('svg').attr('aria-hidden', 'true');
     const tooltip = d3.select(container).append('div').attr('class', 'globe-tooltip');
 
     const projection = d3.geoOrthographic().clipAngle(90).rotate([-berlinCoords[1], -25]);
@@ -41,7 +56,8 @@ const allLocs = [homeLoc, ...locations];
     const arcs = svg.append('g').attr('class', 'globe-arcs');
     const markers = svg.append('g').attr('class', 'globe-markers');
 
-    const world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json');
+    // world-atlas 2.0.2, self-hosted so no visitor data goes to a CDN
+    const world = await fetch('vendor/land-110m.json?v=2.0.2').then(res => res.json());
     land.datum(topojson.feature(world, world.objects.land));
 
     const links = locations.map(l => ({ type: 'LineString', coordinates: [[berlinCoords[1], berlinCoords[0]], [l.lon, l.lat]] }));
@@ -55,7 +71,10 @@ const allLocs = [homeLoc, ...locations];
         })
         .on('mousemove', e => {
             const [x, y] = d3.pointer(e, container);
-            tooltip.style('left', `${x}px`).style('top', `${y}px`);
+            // Keep the tooltip inside the globe area on narrow screens
+            const half = tooltip.node().offsetWidth / 2;
+            const left = Math.max(half, Math.min(container.clientWidth - half, x));
+            tooltip.style('left', `${left}px`).style('top', `${y}px`);
         })
         .on('mouseleave', () => tooltip.classed('visible', false));
 
@@ -81,27 +100,11 @@ const allLocs = [homeLoc, ...locations];
     new ResizeObserver(resize).observe(container);
     resize();
 
-    // Drag to rotate
-    let dragging = false, lastInteraction = 0;
+    // Drag to rotate (the globe stays still otherwise and only redraws while dragged)
     svg.call(d3.drag()
-        .on('start', () => { dragging = true; })
         .on('drag', e => {
             const r = projection.rotate(), k = 75 / projection.scale();
             projection.rotate([r[0] + e.dx * k, Math.max(-90, Math.min(90, r[1] - e.dy * k))]);
             render();
-        })
-        .on('end', () => { dragging = false; lastInteraction = performance.now(); }));
-
-    // Gentle auto-rotation (paused while dragging, off for reduced motion)
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduce) {
-        let last = performance.now();
-        d3.timer(() => {
-            const now = performance.now(), dt = now - last; last = now;
-            if (dragging || now - lastInteraction < 3000) return;
-            const r = projection.rotate();
-            projection.rotate([r[0] + dt * 0.006, r[1]]);
-            render();
-        });
-    }
+        }));
 })();
