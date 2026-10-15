@@ -98,7 +98,7 @@ img {
     padding: 8px 12px;
     background: var(--bg);
     border: 1px solid var(--rule);
-    border-radius: 4px;
+    border-radius: 0;
     transform: translateY(-200%);
 }
 
@@ -374,12 +374,14 @@ img {
 .research-list {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 40px;
+    gap: 20px;
 }
 
+/* Cards: square corners, a hairline border and no shadow; research cards carry a navy top edge */
 .research-item {
+    border: 1px solid var(--rule);
     border-top: 2px solid var(--primary);
-    padding-top: 20px;
+    padding: 24px;
 }
 
 .research-item h3 {
@@ -394,10 +396,11 @@ img {
 }
 
 /* Team */
+/* Four across keeps the 16-person team in even rows */
 .member-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
-    gap: 28px 20px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
 }
 
 .member-role {
@@ -409,13 +412,18 @@ img {
 
 .member-card {
     position: relative;
+    border: 1px solid var(--rule);
+    padding: 12px 12px 16px;
+}
+
+.member-card.has-profile:hover {
+    border-color: var(--primary);
 }
 
 .mini-avatar {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
-    border-radius: 4px;
     background: var(--bg-soft);
     margin-bottom: 12px;
 }
@@ -451,15 +459,16 @@ img {
 /* News */
 .news-list {
     list-style: none;
-    border-top: 1px solid var(--rule);
+    display: grid;
+    gap: 16px;
 }
 
 .news-item {
     display: grid;
     grid-template-columns: 120px minmax(0, 1fr) 200px;
     gap: 32px;
-    padding: 28px 0;
-    border-bottom: 1px solid var(--rule);
+    padding: 24px;
+    border: 1px solid var(--rule);
 }
 
 .news-item[hidden] {
@@ -501,7 +510,6 @@ img {
     width: 100%;
     aspect-ratio: 3 / 2;
     object-fit: cover;
-    border-radius: 4px;
 }
 
 .text-button {
@@ -581,16 +589,18 @@ img {
 /* Software */
 .repo-list {
     list-style: none;
-    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
     margin-bottom: 24px;
 }
 
 .repo-list li {
     display: grid;
-    grid-template-columns: 280px minmax(0, 1fr);
-    gap: 32px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--rule);
+    align-content: start;
+    gap: 8px;
+    padding: 20px;
+    border: 1px solid var(--rule);
 }
 
 .repo-list a {
@@ -695,7 +705,7 @@ img {
     transform: translate(-50%, calc(-100% - 12px));
     background: var(--bg);
     border: 1px solid var(--rule);
-    border-radius: 4px;
+    border-radius: 0;
     padding: 8px 12px;
     color: var(--text-light);
     font-size: 0.85rem;
@@ -773,7 +783,7 @@ img {
     margin: auto;
     padding: 0;
     border: 1px solid var(--rule);
-    border-radius: 4px;
+    border-radius: 0;
     color: var(--text);
     background: var(--bg);
 }
@@ -793,7 +803,7 @@ img {
 .member-dialog-photo {
     width: 120px;
     height: 120px;
-    border-radius: 4px;
+    border-radius: 0;
     object-fit: cover;
 }
 
@@ -869,9 +879,10 @@ img {
         padding-left: 0;
     }
 
-    .research-list {
+    .research-list,
+    .repo-list {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 16px;
     }
 
     .footer-grid {
@@ -925,13 +936,21 @@ img {
 
     .member-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 24px 16px;
+        gap: 12px;
     }
 
     .news-item,
     .pub-item {
         grid-template-columns: 1fr;
         gap: 8px;
+    }
+
+    .news-item {
+        padding: 16px;
+    }
+
+    .research-item {
+        padding: 20px 16px;
     }
 
     .news-text,
@@ -941,11 +960,6 @@ img {
 
     .news-item img {
         margin-top: 8px;
-    }
-
-    .repo-list li {
-        grid-template-columns: 1fr;
-        gap: 4px;
     }
 
     .partner-list {
